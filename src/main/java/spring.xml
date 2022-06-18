@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!--create an object for employee , SI for the data-->
+<bean id="empobj" class="com.example.Employee">
+</bean>
+
+<!--create an object for dao, Si for the template  -->
+<bean id="dao" class="com.example.Empdao">
+
+<property name="temp" ref="template"></property>
+
+</bean>
+
+<!--create an obj for the predefined class of hibernate template  -->
+<bean id="template" class="org.springframework.orm.hibernate3.HibernateTemplate">
+
+<property name="sessionFactory" ref="sf"></property>
+
+</bean>
+
+
+<!--create an obj for the session factory,SI,Hibernate  -->
+
+<bean id="sf" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+
+<property name="dataSource" ref="ds"></property>
+<property name="packagesToScan" value="com.example"></property>
+<property name="hibernateProperties">
+
+<props>
+<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+<prop key="hibernate.hbm2ddl.auto">update</prop>
+<prop key="hibernate.show_sql">true</prop>
+</props>
+
+</property>
+</bean>
+
+<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource">
+
+<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+ <property name="url" value="jdbc:mysql://localhost:3306/dbms"></property>
+ <property name="username" value="root"></property>
+ <property name="password" value="Essel@123"></property>
+
+</bean>
+
+
+
+
+   
+   
+</beans>
